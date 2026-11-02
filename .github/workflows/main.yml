@@ -5,19 +5,14 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Build APK
-      uses: ArtemSBulgakov/buildozer-action@v1
-      with:
-        workdir: BudgetManager_mobileV1
+      - name: List files
+        run: ls -R
 
-    - name: Upload APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: BudgetManager-APK
-        path: BudgetManager_mobileV1/bin/*.apk
+      - name: Check buildozer.spec
+        run: |
+          find . -name buildozer.spec
