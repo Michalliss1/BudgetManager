@@ -10,9 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: List files
-        run: ls -R
-
-      - name: Check buildozer.spec
+      - name: Build APK
         run: |
-          find . -name buildozer.spec
+          cd BudgetManager_mobileV1
+          echo "buildozer.spec found"
+          ls
