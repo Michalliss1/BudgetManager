@@ -1,4 +1,5 @@
-🔗 **[View Live Demo](https://michalliss1.github.io/PersonalFinanceManager-Mobile/)**
+<img width="4032" height="613" alt="image" src="https://github.com/user-attachments/assets/83052f3d-926e-4870-8297-37dfaecdb972" />
+
 
 
 
