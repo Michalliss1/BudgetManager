@@ -1,38 +1,55 @@
 name: Build APK
 
 on:
-  workflow_dispatch:
+workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-22.04
+build:
+runs-on: ubuntu-22.04
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+steps:
+  - name: Checkout
+    uses: actions/checkout@v4
 
-      - name: Show files
-        run: |
-          cd BudgetManager_mobileV1
-          ls -la
-          cat buildozer.spec
+  - name: Install Java
+    uses: actions/setup-java@v4
+    with:
+      distribution: temurin
+      java-version: '17'
 
-      - name: Install Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
+  - name: Install system dependencies
+    run: |
+      sudo apt update
+      sudo apt install -y python3-pip zip unzip git \
+        autoconf libtool pkg-config zlib1g-dev \
+        libncurses5-dev libncursesw5-dev libtinfo5 \
+        cmake libffi-dev libssl-dev
 
-      - name: Install Buildozer
-        run: |
-          sudo apt update
-          sudo apt install -y python3-pip zip unzip git
-          pip3 install buildozer cython
+  - name: Install Buildozer
+    run: |
+      pip3 install --user --upgrade buildozer cython
+      echo "$HOME/.local/bin" >> $GITHUB_PATH
 
-      - name: Accept Android Licenses
-        run: |
-           
-      - name: Build APK
-        run: |
-          cd BudgetManager_mobileV1
-          buildozer android debug
+  - name: Setup Android SDK
+    uses: android-actions/setup-android@v3
+
+  - name: Accept Android Licenses
+    run: |
+      yes | sdkmanager --licenses || true
+
+  - name: Install Android SDK packages
+    run: |
+      sdkmanager "platform-tools" \
+        "platforms;android-35" \
+        "build-tools;37.0.0"
+
+  - name: Build APK
+    run: |
+      cd BudgetManager_mobileV1
+      buildozer android debug
+
+  - name: Upload APK
+    uses: actions/upload-artifact@v4
+    with:
+      name: BudgetManager-APK
+      path: BudgetManager_mobileV1/bin/*.apk
