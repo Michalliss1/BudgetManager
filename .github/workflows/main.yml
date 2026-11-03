@@ -1,4 +1,4 @@
-
+```yaml
 name: Build APK
 
 on:
@@ -32,10 +32,13 @@ jobs:
         run: buildozer --version
 
       - name: Build APK
+        shell: bash
         run: |
           cd BudgetManager_mobileV1
-          set -o pipefail
-          buildozer -v android debug 2>&1 | tee build.log
+          set +e
+          yes | buildozer -v android debug 2>&1 | tee build.log
+          status=${PIPESTATUS[1]}
+          exit "$status"
 
       - name: Upload build log
         if: always()
@@ -52,3 +55,4 @@ jobs:
           name: BudgetManager-APK
           path: BudgetManager_mobileV1/bin/*.apk
           if-no-files-found: warn
+```
