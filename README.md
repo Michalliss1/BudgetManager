@@ -1,6 +1,3 @@
-# Personal Finance Manager
-
-Aplikacja do zarządzania finansami osobistymi.
 
 ## 📲 Pobierz aplikację
 
@@ -8,8 +5,6 @@ Aplikacja do zarządzania finansami osobistymi.
 
 **Wersja:** 1.0 Alpha
 
-
-https://michalliss1.github.io/PersonalFinanceManager-Mobile/
 
 
 <img width="1896" height="2268" alt="image" src="https://github.com/user-attachments/assets/f0db7a62-eaf7-4eb2-917f-ad062827c5d5" />
