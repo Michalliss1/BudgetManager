@@ -17,7 +17,7 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Install dependencies
+      - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pip zip unzip git autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev cmake libffi-dev libssl-dev
@@ -29,13 +29,13 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          accept-android-sdk-licenses: true
+          packages: 'platform-tools'
 
-      - name: Accept Android Licenses
-        run: yes | sdkmanager --licenses
-
-      - name: Install Android SDK
+      - name: Install Android SDK packages
         run: |
-          sdkmanager "platform-tools" "platforms;android-35" "build-tools;37.0.0"
+          sdkmanager --install "platforms;android-35" "build-tools;37.0.0"
 
       - name: Build APK
         run: |
