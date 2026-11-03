@@ -1,4 +1,6 @@
-##  Try the App Online
+# 📱 Install APK
+
+[Install APK](https://michalliss1.github.io/PersonalFinanceManager-Mobile/)
 
 [Open Website](https://michalliss1.github.io/PersonalFinanceManager-Mobile/)
 
