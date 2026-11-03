@@ -1,8 +1,12 @@
-📲 Pobierz aplikację
+# Personal Finance Manager
 
-Kliknij poniższy link, aby pobrać plik APK:
+Aplikacja do zarządzania finansami osobistymi.
 
-⬇️ POBIERZ PERSONAL FINANCE MANAGER – v1.0 Alpha
+## 📲 Pobierz aplikację
+
+[**⬇️ OTWÓRZ STRONĘ I ZAINSTALUJ APLIKACJĘ**](https://michalliss1.github.io/PersonalFinanceManager-Mobile/)
+
+**Wersja:** 1.0 Alpha
 
 
 <img width="1896" height="2268" alt="image" src="https://github.com/user-attachments/assets/f0db7a62-eaf7-4eb2-917f-ad062827c5d5" />
