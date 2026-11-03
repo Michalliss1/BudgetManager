@@ -23,16 +23,27 @@ jobs:
           sudo apt-get install -y \
             python3-pip \
             python3-venv \
-            zip unzip git \
-            autoconf libtool pkg-config \
-            zlib1g-dev libncurses5-dev \
-            libncursesw5-dev cmake \
-            libffi-dev libssl-dev
+            zip \
+            unzip \
+            git \
+            autoconf \
+            libtool \
+            pkg-config \
+            zlib1g-dev \
+            libncurses5-dev \
+            libncursesw5-dev \
+            cmake \
+            libffi-dev \
+            libssl-dev
 
       - name: Install Buildozer
         run: |
-          python3 -m pip install --user --upgrade --break-system-packages buildozer cython
+          python3 -m pip install --user --upgrade buildozer cython
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Check Buildozer
+        run: |
+          buildozer --version
 
       - name: Build APK
         run: |
