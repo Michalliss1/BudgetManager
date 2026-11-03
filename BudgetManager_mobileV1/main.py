@@ -1,7 +1,4 @@
-from kivy.config import Config
 
-Config.set("graphics", "width", "360")
-Config.set("graphics", "height", "800")
 from datetime import datetime
 from funkcje import utworz_wydatki
 
