@@ -1,4 +1,3 @@
-```yaml
 name: Build APK
 
 on:
@@ -55,4 +54,3 @@ jobs:
           name: BudgetManager-APK
           path: BudgetManager_mobileV1/bin/*.apk
           if-no-files-found: warn
-```
