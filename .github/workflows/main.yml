@@ -1,3 +1,4 @@
+```yaml
 name: Build APK
 
 on:
@@ -48,11 +49,22 @@ jobs:
       - name: Build APK
         run: |
           cd BudgetManager_mobileV1
-          yes | buildozer -v android debug
+          set -o pipefail
+          yes | buildozer -v android debug 2>&1 | tee build.log
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Build-Error-Log
+          path: BudgetManager_mobileV1/build.log
+          if-no-files-found: warn
 
       - name: Upload APK
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: BudgetManager-APK
           path: BudgetManager_mobileV1/bin/*.apk
           if-no-files-found: error
+```
