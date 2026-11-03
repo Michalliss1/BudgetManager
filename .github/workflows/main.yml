@@ -29,6 +29,9 @@ jobs:
           sudo apt install -y python3-pip zip unzip git
           pip3 install buildozer cython
 
+      - name: Accept Android Licenses
+        run: |
+           
       - name: Build APK
         run: |
           cd BudgetManager_mobileV1
