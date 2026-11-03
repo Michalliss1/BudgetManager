@@ -35,7 +35,7 @@ jobs:
         run: |
           cd BudgetManager_mobileV1
           set -o pipefail
-          yes | buildozer -v android debug 2>&1 | tee build.log
+          buildozer -v android debug 2>&1 | tee build.log
 
       - name: Upload build log
         if: always()
