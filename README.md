@@ -26,9 +26,7 @@
 
 <img width="790" height="627" alt="historia" src="https://github.com/user-attachments/assets/4a8aeb24-3be9-489c-a611-97b1148e02fe" />
 
-### Statistics Screen
 
-<img width="790" height="627" alt="statystyki" src="https://github.com/user-attachments/assets/ed5f2067-777e-4e68-b950-587649fb6657" />
 
 
 
