@@ -33,7 +33,7 @@ jobs:
       - name: Build APK
         shell: bash
         run: |
-          cd BudgetManager_mobileV1
+          cd BudgetManager_appV1
           set +e
           yes | buildozer -v android debug 2>&1 | tee build.log
           status=${PIPESTATUS[1]}
