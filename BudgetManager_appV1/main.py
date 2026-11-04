@@ -834,8 +834,8 @@ class BudgetApp(App):
         self.input_sklep = TextInput(
             hint_text="Podaj nazwę sklepu:",
             size_hint_y=None,
-            height=dp(80),
-            font_size="22sp",
+            height=dp(60),
+            font_size="20sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -843,8 +843,8 @@ class BudgetApp(App):
         self.input_kwota = TextInput(
             hint_text="Podaj kwotę:",
             size_hint_y=None,
-            height=dp(80),
-            font_size="22sp",
+            height=dp(60),
+            font_size="20sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -974,8 +974,8 @@ class BudgetApp(App):
         self.input_stacja = TextInput(
             hint_text="Podaj nazwę Stacji Paliw:",
             size_hint_y=None,
-            height=dp(80),
-            font_size="22sp",
+            height=dp(60),
+            font_size="20sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -983,8 +983,8 @@ class BudgetApp(App):
         self.input_kwota = TextInput(
             hint_text="Podaj kwotę:",
             size_hint_y=None,
-            height=dp(80),
-            font_size="22sp",
+            height=dp(60),
+            font_size="20sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1191,8 +1191,8 @@ class BudgetApp(App):
         self.input_nazwa = TextInput(
             hint_text="Podaj nazwę wydatku:",
             size_hint_y=None,
-            height=dp(80),
-            font_size="22sp",
+            height=dp(60),
+            font_size="20sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1200,8 +1200,8 @@ class BudgetApp(App):
         self.input_kwota = TextInput(
             hint_text="Podaj kwotę:",
             size_hint_y=None,
-            height=dp(80),
-            font_size="22sp",
+            height=dp(60),
+            font_size="20sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1609,8 +1609,8 @@ class BudgetApp(App):
         self.input_rok = TextInput(
             hint_text="Podaj rok:",
             size_hint_y=None,
-            height=dp(80),
-            font_size="22sp",
+            height=dp(60),
+            font_size="20sp",
             padding=[dp(15), dp(25)],
             multiline=False
         )
@@ -1618,8 +1618,8 @@ class BudgetApp(App):
         self.input_miesiac = TextInput(
             hint_text="Podaj miesiąc (1-12):",
             size_hint_y=None,
-            height=dp(80),
-            font_size="22sp",
+            height=dp(60),
+            font_size="20sp",
             padding=[dp(15), dp(25)],
             multiline=False
         )
@@ -1894,8 +1894,8 @@ class BudgetApp(App):
         self.input_rok = TextInput(
             hint_text="Podaj rok:",
             size_hint_y=None,
-            height=dp(80),
-            font_size="22sp",
+            height=dp(60),
+            font_size="20sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1903,8 +1903,8 @@ class BudgetApp(App):
         self.input_miesiac = TextInput(
             hint_text="Podaj miesiąc (1-12):",
             size_hint_y=None,
-            height=dp(80),
-            font_size="22sp",
+            height=dp(60),
+            font_size="20sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1912,8 +1912,8 @@ class BudgetApp(App):
         self.input_dzien = TextInput(
             hint_text="Podaj dzień:",
             size_hint_y=None,
-            height=dp(80),
-            font_size="22sp",
+            height=dp(60),
+            font_size="20sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -2199,7 +2199,7 @@ class BudgetApp(App):
                             f"[color=00ff00]{wydatek['kwota']:.2f} zł[/color]"
                         ),
                         markup=True,
-                        font_size="19sp",
+                        font_size="16sp",
                         size_hint_y=None,
                         height=dp(60)
                     )
