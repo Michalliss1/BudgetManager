@@ -835,7 +835,7 @@ class BudgetApp(App):
             hint_text="Podaj nazwę sklepu:",
             size_hint_y=None,
             height=dp(60),
-            font_size="20sp",
+            font_size="15sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -844,7 +844,7 @@ class BudgetApp(App):
             hint_text="Podaj kwotę:",
             size_hint_y=None,
             height=dp(60),
-            font_size="20sp",
+            font_size="15sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -975,7 +975,7 @@ class BudgetApp(App):
             hint_text="Podaj nazwę Stacji Paliw:",
             size_hint_y=None,
             height=dp(60),
-            font_size="20sp",
+            font_size="15sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -984,7 +984,7 @@ class BudgetApp(App):
             hint_text="Podaj kwotę:",
             size_hint_y=None,
             height=dp(60),
-            font_size="20sp",
+            font_size="15sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1192,7 +1192,7 @@ class BudgetApp(App):
             hint_text="Podaj nazwę wydatku:",
             size_hint_y=None,
             height=dp(60),
-            font_size="20sp",
+            font_size="15sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1201,7 +1201,7 @@ class BudgetApp(App):
             hint_text="Podaj kwotę:",
             size_hint_y=None,
             height=dp(60),
-            font_size="20sp",
+            font_size="15sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1610,7 +1610,7 @@ class BudgetApp(App):
             hint_text="Podaj rok:",
             size_hint_y=None,
             height=dp(60),
-            font_size="20sp",
+            font_size="15sp",
             padding=[dp(15), dp(25)],
             multiline=False
         )
@@ -1619,7 +1619,7 @@ class BudgetApp(App):
             hint_text="Podaj miesiąc (1-12):",
             size_hint_y=None,
             height=dp(60),
-            font_size="20sp",
+            font_size="15sp",
             padding=[dp(15), dp(25)],
             multiline=False
         )
@@ -1895,7 +1895,7 @@ class BudgetApp(App):
             hint_text="Podaj rok:",
             size_hint_y=None,
             height=dp(60),
-            font_size="20sp",
+            font_size="15sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1904,7 +1904,7 @@ class BudgetApp(App):
             hint_text="Podaj miesiąc (1-12):",
             size_hint_y=None,
             height=dp(60),
-            font_size="20sp",
+            font_size="15sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1913,7 +1913,7 @@ class BudgetApp(App):
             hint_text="Podaj dzień:",
             size_hint_y=None,
             height=dp(60),
-            font_size="20sp",
+            font_size="15sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
