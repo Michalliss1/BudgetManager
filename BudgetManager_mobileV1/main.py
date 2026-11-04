@@ -65,7 +65,7 @@ class BudgetApp(App):
 
         self.nazwa = Label(
             text="Personal Finance Manager",
-            font_size="32sp",
+            font_size="25sp",
             color=(1, 1, 1, 1),
             opacity=0,
             pos_hint={"center_x": 0.5, "center_y": 0.43}
@@ -641,48 +641,67 @@ class BudgetApp(App):
         self.layout.add_widget(ekran)
 
 
-    def cofnij_wybor(self,instance):
-        
+   
+    def cofnij_wybor(self, instance):
+
         self.layout.clear_widgets()
+
         if not hasattr(self, "wpisy_do_cofniecia"):
             self.wpisy_do_cofniecia = self.wydatki[-10:].copy()
+
         ekran = BoxLayout(
             orientation="vertical",
-            padding=(20, 5, 20, 5),
-            spacing=2
+            padding=[dp(15), dp(10), dp(15), dp(10)],
+            spacing=dp(8)
         )
-        
 
         tytul = Label(
             text="Cofnij wpis (10 ostatnich)",
+            font_size="24sp",
+            bold=True,
             size_hint_y=None,
-            height=40
+            height=dp(60),
+            halign="center",
+            valign="middle"
         )
 
-        
         ekran.add_widget(tytul)
+
         if not self.wydatki:
             ekran.add_widget(
                 Label(
-                text="Brak wpisów do cofnięcia"
+                    text="Brak wpisów do cofnięcia",
+                    font_size="21sp"
                 )
             )
+
         else:
+            scroll = ScrollView(
+                size_hint=(1, 1),
+                do_scroll_x=False,
+                bar_width=dp(5)
+            )
+
             lista = BoxLayout(
-            orientation="vertical",
-            size_hint=(1, None),
-            spacing=2
-        )
+                orientation="vertical",
+                size_hint=(1, None),
+                spacing=dp(12),
+                padding=[dp(5), dp(5)]
+            )
+
             lista.bind(minimum_height=lista.setter("height"))
+
             ostatnie_wpisy = [
-            wpis
-            for wpis in self.wpisy_do_cofniecia
-            if wpis in self.wydatki
+                wpis
+                for wpis in self.wpisy_do_cofniecia
+                if wpis in self.wydatki
             ]
+
             for i, wydatek in enumerate(
                 reversed(ostatnie_wpisy),
-                start =1
-            ):  
+                start=1
+            ):
+
                 btn_klik = Button(
                     text=(
                         f"[b][color=ff9900]{i}.[/color][/b] "
@@ -692,23 +711,23 @@ class BudgetApp(App):
                         f"{wydatek['kwota']:.2f} zł"
                     ),
                     markup=True,
-                    font_size=17,
-                    
+                    font_size="21sp",
                     background_normal="",
                     background_down="",
                     background_color=(0, 0, 0, 0),
                     color=(1, 1, 1, 1),
                     halign="left",
                     valign="middle",
-                    size_hint=(0.5, None),
-                    height=45,
+                    size_hint=(1, None),
+                    height=dp(110)
                 )
 
                 btn_klik.bind(
-                    width=lambda inst, w: setattr(inst, "text_size", (w - 10, None))
+                    width=lambda inst, w: setattr(
+                        inst, "text_size", (w - dp(20), None)
+                    )
                 )
-                
-                
+
                 def klikniecie(instance, wydatek=wydatek):
                     animacja = Animation(opacity=0.4, duration=0.3)
                     animacja.bind(
@@ -720,38 +739,41 @@ class BudgetApp(App):
 
                 lista.add_widget(btn_klik)
 
-            lista_srodek = AnchorLayout(
-                anchor_x="center",
-                anchor_y="top",
-                size_hint=(1, 1)
-            )
-            lista_srodek.add_widget(lista)
-            ekran.add_widget(lista_srodek)
-       
+            scroll.add_widget(lista)
+            ekran.add_widget(scroll)
 
+        # Przycisk powrotu
         powrot_layout = FloatLayout(
             size_hint_y=None,
-            height=60
+            height=dp(110)
         )
 
         ikona_powrot = Image(
             source="icons/wroc.png",
             fit_mode="contain",
-            size_hint=(0.85, 0.85),
-            pos_hint={"center_x": 0.5, "center_y": 0.5}
+            size_hint=(0.65, 0.85),
+            pos_hint={
+                "center_x": 0.5,
+                "center_y": 0.65
+            }
         )
 
         napis_powrot = Label(
             text="Powrót",
-            font_size="18sp",
+            font_size="28sp",
             bold=True,
             color=(1, 1, 1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 0.15}
+            size_hint=(1, 0.30),
+            pos_hint={
+                "center_x": 0.5,
+                "center_y": 0.12
+            }
         )
 
         btn_powrot = Button(
             text="",
             size_hint=(1, 1),
+            pos_hint={"x": 0, "y": 0},
             background_normal="",
             background_down="",
             background_color=(0, 0, 0, 0)
@@ -759,11 +781,7 @@ class BudgetApp(App):
 
         btn_powrot.bind(
             on_press=lambda x: self.pokaz_menu(None)
-
         )
-
-       
-        
 
         powrot_layout.add_widget(ikona_powrot)
         powrot_layout.add_widget(napis_powrot)
@@ -771,14 +789,8 @@ class BudgetApp(App):
 
         ekran.add_widget(powrot_layout)
 
-                        
-                        
-       
-
-
-
-
         self.layout.add_widget(ekran)
+
     def usun_wpis(self, wydatek):
         if wydatek not in self.wydatki:
             return
@@ -821,15 +833,21 @@ class BudgetApp(App):
 
 
         self.input_sklep = TextInput(
-        hint_text="Podaj nazwę sklepu:",
-        size_hint_y=None,
-        height=50
+            hint_text="Podaj nazwę sklepu:",
+            size_hint_y=None,
+            height=dp(100),
+            font_size="24sp",
+            padding=[dp(15), dp(22)],
+            multiline=False
         )
 
         self.input_kwota = TextInput(
             hint_text="Podaj kwotę:",
             size_hint_y=None,
-            height=50
+            height=dp(100),
+            font_size="24sp",
+            padding=[dp(15), dp(22)],
+            multiline=False
         )
 
         self.info_label = Label(
@@ -839,7 +857,7 @@ class BudgetApp(App):
 
         zapisz_layout = FloatLayout(
             size_hint_y=None,
-            height=80
+            height=150
         )
 
         ikona_zapisz = Image(
@@ -876,7 +894,7 @@ class BudgetApp(App):
 
         powrot_layout = FloatLayout(
             size_hint_y=None,
-            height=80
+            height=150
         )
 
         ikona_powrot = Image(
@@ -931,19 +949,22 @@ class BudgetApp(App):
 
         )
 
+   
     def pokaz_paliwo(self, instance):
-        
 
         self.layout.clear_widgets()
 
         ekran = BoxLayout(
             orientation="vertical",
-            padding=20,
-            spacing=3
+            padding=dp(20),
+            spacing=dp(6)
         )
 
         tytul = Label(
-            text="Dodaj Paliwo"
+            text="Dodaj Paliwo",
+            font_size="24sp",
+            size_hint_y=None,
+            height=dp(45)
         )
 
         ikona_paliwo = Image(
@@ -955,62 +976,75 @@ class BudgetApp(App):
         self.input_stacja = TextInput(
             hint_text="Podaj nazwę Stacji Paliw:",
             size_hint_y=None,
-            height=50
+            height=dp(100),
+            font_size="24sp",
+            padding=[dp(15), dp(22)],
+            multiline=False
         )
 
         self.input_kwota = TextInput(
             hint_text="Podaj kwotę:",
             size_hint_y=None,
-            height=50
+            height=dp(100),
+            font_size="24sp",
+            padding=[dp(15), dp(22)],
+            multiline=False
         )
 
         self.info_label = Label(
             text="",
-            color=(1, 0, 0, 1)
+            color=(1, 0, 0, 1),
+            font_size="18sp",
+            size_hint_y=None,
+            height=dp(30)
         )
 
-        
         self.btn_pb95 = Button(
             text="PB95",
-            size_hint=(0.18, None),
-            height=40,
-            pos_hint={"center_x": 0.5},
+            size_hint=(1, None),
+            height=dp(55),
+            font_size="20sp",
             background_normal="",
             background_down="",
             background_color=(0.95, 0.55, 0.05, 1)
         )
+
         self.btn_pb98 = Button(
-         text="PB98",
-            size_hint=(0.18, None),
-            height=40,
-            pos_hint={"center_x": 0.5},
+            text="PB98",
+            size_hint=(1, None),
+            height=dp(55),
+            font_size="20sp",
             background_normal="",
             background_down="",
             background_color=(0.95, 0.55, 0.05, 1)
         )
+
         self.btn_on = Button(
             text="ON",
-            size_hint=(0.18, None),
-            height=40,
-            pos_hint={"center_x": 0.5},
+            size_hint=(1, None),
+            height=dp(55),
+            font_size="20sp",
             background_normal="",
             background_down="",
             background_color=(0.95, 0.55, 0.05, 1)
         )
+
         self.btn_lpg = Button(
             text="LPG",
-            size_hint=(0.18, None),
-            height=40,
-            pos_hint={"center_x": 0.5},
+            size_hint=(1, None),
+            height=dp(55),
+            font_size="20sp",
             background_normal="",
             background_down="",
             background_color=(0.95, 0.55, 0.05, 1)
         )
+
         self.btn_elektryk = Button(
             text="Elektryk",
-            size_hint=(0.6, None),
-            height=40,
-            pos_hint={"center_x": 0.50},
+            size_hint=(0.95, None),
+            height=dp(60),
+            font_size="20sp",
+            pos_hint={"center_x": 0.5},
             background_normal="",
             background_down="",
             background_color=(0.95, 0.55, 0.05, 1)
@@ -1019,28 +1053,39 @@ class BudgetApp(App):
         self.btn_pb95.bind(
             on_press=lambda x: self.ustaw_paliwo("PB95")
         )
-    
+
         self.btn_pb98.bind(
             on_press=lambda x: self.ustaw_paliwo("PB98")
         )
-    
+
         self.btn_on.bind(
             on_press=lambda x: self.ustaw_paliwo("ON")
         )
-    
+
         self.btn_lpg.bind(
             on_press=lambda x: self.ustaw_paliwo("LPG")
         )
 
         self.btn_elektryk.bind(
             on_press=lambda x: self.ustaw_paliwo("Elektryk")
-        ) 
-        
+        )
 
+        paliwa_layout = GridLayout(
+            cols=2,
+            spacing=dp(10),
+            size_hint=(0.95, None),
+            height=dp(120),
+            pos_hint={"center_x": 0.5}
+        )
+
+        paliwa_layout.add_widget(self.btn_pb95)
+        paliwa_layout.add_widget(self.btn_pb98)
+        paliwa_layout.add_widget(self.btn_on)
+        paliwa_layout.add_widget(self.btn_lpg)
 
         zapisz_layout = FloatLayout(
             size_hint_y=None,
-            height=80
+            height=dp(150)
         )
 
         ikona_zapisz = Image(
@@ -1052,7 +1097,7 @@ class BudgetApp(App):
 
         napis_zapisz = Label(
             text="Zapisz",
-            font_size="18sp",
+            font_size="28sp",
             bold=True,
             color=(1, 1, 1, 1),
             pos_hint={"center_x": 0.5, "center_y": 0.15}
@@ -1060,7 +1105,7 @@ class BudgetApp(App):
 
         btn_zapisz = Button(
             text="",
-            size_hint=(0.1, 1),
+            size_hint=(1, 1),
             pos_hint={"center_x": 0.5, "y": 0},
             background_normal="",
             background_down="",
@@ -1071,10 +1116,9 @@ class BudgetApp(App):
         zapisz_layout.add_widget(napis_zapisz)
         zapisz_layout.add_widget(btn_zapisz)
 
-
         powrot_layout = FloatLayout(
             size_hint_y=None,
-            height=80
+            height=dp(150)
         )
 
         ikona_powrot = Image(
@@ -1086,7 +1130,7 @@ class BudgetApp(App):
 
         napis_powrot = Label(
             text="Powrót",
-            font_size="18sp",
+            font_size="28sp",
             bold=True,
             color=(1, 1, 1, 1),
             pos_hint={"center_x": 0.5, "center_y": 0.15}
@@ -1094,7 +1138,7 @@ class BudgetApp(App):
 
         btn_powrot = Button(
             text="",
-            size_hint=(0.1, 1),
+            size_hint=(1, 1),
             pos_hint={"center_x": 0.5, "y": 0},
             background_normal="",
             background_down="",
@@ -1105,33 +1149,13 @@ class BudgetApp(App):
         powrot_layout.add_widget(napis_powrot)
         powrot_layout.add_widget(btn_powrot)
 
-
-        
-            
         ekran.add_widget(ikona_paliwo)
         ekran.add_widget(tytul)
         ekran.add_widget(self.input_stacja)
         ekran.add_widget(self.input_kwota)
-        
-        
         ekran.add_widget(self.info_label)
-        
-        paliwa_layout = GridLayout(
-            cols=2,
-            spacing=10,
-            size_hint=(0.6, None),
-            height=100,
-            pos_hint={"center_x": 0.5}
-        )
-
-        paliwa_layout.add_widget(self.btn_pb95)
-        paliwa_layout.add_widget(self.btn_pb98)
-        paliwa_layout.add_widget(self.btn_on)
-        paliwa_layout.add_widget(self.btn_lpg)
-
         ekran.add_widget(paliwa_layout)
         ekran.add_widget(self.btn_elektryk)
-
         ekran.add_widget(zapisz_layout)
         ekran.add_widget(powrot_layout)
 
@@ -1143,8 +1167,9 @@ class BudgetApp(App):
 
         btn_zapisz.bind(
             on_press=self.zapisz_paliwo
-
         )
+
+    
 
     def pokaz_inne(self, instance):
 
@@ -1152,13 +1177,17 @@ class BudgetApp(App):
 
         ekran = BoxLayout(
             orientation="vertical",
-            padding=20,
-            spacing=10
+            padding=dp(20),
+            spacing=dp(6)
         )
 
         tytul = Label(
-            text="Dodaj Inne"
+            text="Dodaj Inne",
+            font_size="24sp",
+            size_hint_y=None,
+            height=dp(45)
         )
+
         ikona_inne = Image(
             source="icons/inne.png",
             size_hint=(1, 0.9),
@@ -1168,23 +1197,32 @@ class BudgetApp(App):
         self.input_nazwa = TextInput(
             hint_text="Podaj nazwę wydatku:",
             size_hint_y=None,
-            height=50
+            height=dp(100),
+            font_size="24sp",
+            padding=[dp(15), dp(22)],
+            multiline=False
         )
 
         self.input_kwota = TextInput(
             hint_text="Podaj kwotę:",
             size_hint_y=None,
-            height=50
+            height=dp(100),
+            font_size="24sp",
+            padding=[dp(15), dp(22)],
+            multiline=False
         )
 
         self.info_label = Label(
             text="",
-            color=(1, 0, 0, 1)
+            color=(1, 0, 0, 1),
+            font_size="18sp",
+            size_hint_y=None,
+            height=dp(30)
         )
 
         zapisz_layout = FloatLayout(
             size_hint_y=None,
-            height=80
+            height=dp(150)
         )
 
         ikona_zapisz = Image(
@@ -1196,7 +1234,7 @@ class BudgetApp(App):
 
         napis_zapisz = Label(
             text="Zapisz",
-            font_size="18sp",
+            font_size="28sp",
             bold=True,
             color=(1, 1, 1, 1),
             pos_hint={"center_x": 0.5, "center_y": 0.15}
@@ -1204,11 +1242,8 @@ class BudgetApp(App):
 
         btn_zapisz = Button(
             text="",
-            size_hint=(0.1, 1),
-            pos_hint={
-                "center_x": 0.5,
-                "y": 0
-            },
+            size_hint=(1, 1),
+            pos_hint={"center_x": 0.5, "y": 0},
             background_normal="",
             background_down="",
             background_color=(0, 0, 0, 0)
@@ -1217,10 +1252,10 @@ class BudgetApp(App):
         zapisz_layout.add_widget(ikona_zapisz)
         zapisz_layout.add_widget(napis_zapisz)
         zapisz_layout.add_widget(btn_zapisz)
-                
+
         powrot_layout = FloatLayout(
             size_hint_y=None,
-            height=80
+            height=dp(150)
         )
 
         ikona_powrot = Image(
@@ -1232,7 +1267,7 @@ class BudgetApp(App):
 
         napis_powrot = Label(
             text="Powrót",
-            font_size="18sp",
+            font_size="28sp",
             bold=True,
             color=(1, 1, 1, 1),
             pos_hint={"center_x": 0.5, "center_y": 0.15}
@@ -1240,11 +1275,8 @@ class BudgetApp(App):
 
         btn_powrot = Button(
             text="",
-            size_hint=(0.1, 1),
-            pos_hint={
-                "center_x": 0.5,
-                "y": 0
-            },
+            size_hint=(1, 1),
+            pos_hint={"center_x": 0.5, "y": 0},
             background_normal="",
             background_down="",
             background_color=(0, 0, 0, 0)
@@ -1254,17 +1286,13 @@ class BudgetApp(App):
         powrot_layout.add_widget(napis_powrot)
         powrot_layout.add_widget(btn_powrot)
 
-
-        
-                
         ekran.add_widget(ikona_inne)
         ekran.add_widget(tytul)
         ekran.add_widget(self.input_nazwa)
         ekran.add_widget(self.input_kwota)
+        ekran.add_widget(self.info_label)
         ekran.add_widget(zapisz_layout)
         ekran.add_widget(powrot_layout)
-        
-        ekran.add_widget(self.info_label)
 
         self.layout.add_widget(ekran)
 
@@ -1276,29 +1304,25 @@ class BudgetApp(App):
             on_press=self.zapisz_inne
         )
 
+
+    
     
     def pokaz_historie(self, instance):
-        
-
-        scroll = ScrollView(
-            size_hint=(1, 3),
-            do_scroll_x=False
-        )
 
         self.layout.clear_widgets()
 
         ekran = BoxLayout(
             orientation="vertical",
-            padding=20,
-            spacing=5
+            padding=[dp(15), dp(10), dp(15), dp(20)],
+            spacing=dp(8)
         )
 
         tytul = Label(
             text="Historia wydatków",
-            font_size="20sp",
+            font_size="24sp",
             bold=True,
             size_hint_y=None,
-            height=50,
+            height=dp(55),
             halign="center",
             valign="middle"
         )
@@ -1307,30 +1331,39 @@ class BudgetApp(App):
 
         liczba_wpisow = Label(
             text=f"Liczba zapisanych wpisów: {len(self.wydatki)}",
-            font_size="16sp",
+            font_size="18sp",
             bold=True,
             size_hint_y=None,
-            height =15
+            height=dp(40),
+            halign="center",
+            valign="middle"
         )
 
         ekran.add_widget(liczba_wpisow)
 
-        # Kontener przewijanej listy
+        # Przewijana lista wydatków
+        scroll = ScrollView(
+            size_hint=(1, 1),
+            do_scroll_x=False,
+            bar_width=dp(5)
+        )
+
         lista = BoxLayout(
             orientation="vertical",
             size_hint=(1, None),
-            spacing=2
+            spacing=dp(8),
+            padding=[dp(5), dp(5)]
         )
 
         lista.bind(minimum_height=lista.setter("height"))
+
         if not self.wydatki:
             lista.add_widget(
                 Label(
                     text="Brak zapisanych wydatków",
-                    font_size="18sp",
-                    color=(1, 1, 1, 1),
+                    font_size="20sp",
                     size_hint_y=None,
-                    height=40
+                    height=dp(60)
                 )
             )
 
@@ -1347,45 +1380,28 @@ class BudgetApp(App):
                 rekord = Label(
                     text=tekst,
                     markup=True,
-                    font_size="16sp",
+                    font_size="21sp",
                     size_hint=(1, None),
-                    height=40,
+                    height=dp(100),
                     halign="left",
-                   
                     valign="middle"
                 )
 
                 rekord.bind(
                     width=lambda inst, szerokosc: setattr(
-                        inst, "text_size", (szerokosc, None)
+                        inst, "text_size", (szerokosc - dp(10), None)
                     )
                 )
 
                 lista.add_widget(rekord)
 
-        # Wyśrodkowanie listy bez centrowania tekstu rekordów
-        lista_srodek = AnchorLayout(
-            anchor_x="center",
-            anchor_y="top",
-            size_hint=(1, None)
-        )
-
-        lista_srodek.add_widget(lista)
-        lista_srodek.height = lista.height
-
-        lista.bind(
-            height=lambda inst, wysokosc: setattr(
-                lista_srodek, "height", wysokosc
-            )
-        )
-
-        scroll.add_widget(lista_srodek)
+        scroll.add_widget(lista)
         ekran.add_widget(scroll)
 
         # Przycisk powrotu
         powrot_layout = FloatLayout(
             size_hint_y=None,
-            height=60
+            height=dp(90)
         )
 
         ikona_powrot = Image(
@@ -1400,7 +1416,7 @@ class BudgetApp(App):
 
         napis_powrot = Label(
             text="Powrót",
-            font_size="18sp",
+            font_size="23sp",
             bold=True,
             color=(1, 1, 1, 1),
             pos_hint={
@@ -1430,116 +1446,91 @@ class BudgetApp(App):
         self.layout.add_widget(ekran)
 
 
+
+    
     def pokaz_statystyki(self, instance):
         self.layout.clear_widgets()
 
         ekran = BoxLayout(
             orientation="vertical",
-            padding=20,
-            spacing=10
-        )   
+            padding=[dp(15), dp(10), dp(15), dp(15)],
+            spacing=dp(8)
+        )
 
-        
         tytul = Label(
             text="Statystyki",
-            font_size="22sp",
+            font_size="25sp",
             bold=True,
             color=(1, 1, 1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 0.5}
-        )
-
-       
-
-        
-
-        wszystkie_layout = FloatLayout(
             size_hint_y=None,
-            height=350
+            height=dp(60)
         )
 
-        ikona_wszystkie = Image(
-            source="icons/statystyki.jpg",
-            fit_mode="contain",
-            size_hint=(0.34, 0.34),
-            pos_hint={"center_x":0.5,"center_y":0.5}
+        ekran.add_widget(tytul)
+
+        # Statystyki miesiąca
+        miesiaca_layout = FloatLayout(
+            size_hint_y=None,
+            height=dp(190)
         )
 
-        napis_wszystkie = Label(
-            text="Wszystkie statystyki",
-            font_size="18sp",
-            bold=True,
-            color=(1,1,1,1),
-            pos_hint={"center_x":0.5,"center_y":0.25}
-        )
-
-        btn_wszystkie = Button(
-            text="",
-            size_hint=(0.12, 0.4),
-            pos_hint={
-                "center_x": 0.5,
-                "center_y": 0.52
-            },
-            background_color=(0, 0, 0, 0)
-        )
-        wszystkie_layout.add_widget(ikona_wszystkie)
-        wszystkie_layout.add_widget(napis_wszystkie)
-        wszystkie_layout.add_widget(btn_wszystkie)
-
-        miesiaca_layout = FloatLayout()
-
-        ikona_miesieca = Image(
+        ikona_miesiaca = Image(
             source="icons/statystyki_miesiaca.png",
             fit_mode="contain",
-            size_hint=(1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 1.2}
+            size_hint=(0.65, 0.75),
+            pos_hint={"center_x": 0.5, "center_y": 0.65}
         )
 
         napis_miesiaca = Label(
             text="Statystyki miesiąca",
-            font_size="18sp",
+            font_size="22sp",
             bold=True,
             color=(1, 1, 1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 0.6}
+            size_hint=(1, 0.25),
+            pos_hint={"center_x": 0.5, "center_y": 0.10}
         )
 
         btn_miesiaca = Button(
             text="",
-            size_hint=(0.12, 1),
-            pos_hint={
-                "center_x": 0.5,
-                "center_y": 1.2
-            },
+            size_hint=(1, 1),
+            pos_hint={"x": 0, "y": 0},
+            background_normal="",
+            background_down="",
             background_color=(0, 0, 0, 0)
         )
 
-        miesiaca_layout.add_widget(ikona_miesieca)
+        miesiaca_layout.add_widget(ikona_miesiaca)
         miesiaca_layout.add_widget(napis_miesiaca)
         miesiaca_layout.add_widget(btn_miesiaca)
 
-        dnia_layout = FloatLayout()
+        # Statystyki dnia
+        dnia_layout = FloatLayout(
+            size_hint_y=None,
+            height=dp(190)
+        )
 
         ikona_dnia = Image(
             source="icons/statystyki_dnia.png",
             fit_mode="contain",
-            size_hint=(1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 0.9}
+            size_hint=(0.65, 0.75),
+            pos_hint={"center_x": 0.5, "center_y": 0.65}
         )
 
         napis_dnia = Label(
             text="Statystyki dnia",
-            font_size="18sp",
+            font_size="22sp",
             bold=True,
             color=(1, 1, 1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 0.35}
+            size_hint=(1, 0.25),
+            pos_hint={"center_x": 0.5, "center_y": 0.10}
         )
 
         btn_dnia = Button(
             text="",
-            size_hint=(0.12, 1),
-            pos_hint={
-                "center_x": 0.5,
-                "center_y": 0.95
-            },
+            size_hint=(1, 1),
+            pos_hint={"x": 0, "y": 0},
+            background_normal="",
+            background_down="",
             background_color=(0, 0, 0, 0)
         )
 
@@ -1547,54 +1538,44 @@ class BudgetApp(App):
         dnia_layout.add_widget(napis_dnia)
         dnia_layout.add_widget(btn_dnia)
 
-        wroc_layout = FloatLayout()
+        # Powrót
+        wroc_layout = FloatLayout(
+            size_hint_y=None,
+            height=dp(110)
+        )
 
         ikona_wroc = Image(
             source="icons/wroc.png",
             fit_mode="contain",
-            size_hint=(1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 0.64}
+            size_hint=(0.65, 0.85),
+            pos_hint={"center_x": 0.5, "center_y": 0.55}
         )
 
         napis_wroc = Label(
             text="Powrót",
-            font_size="18sp",
+            font_size="22sp",
             bold=True,
             color=(1, 1, 1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 0.15}
+            size_hint=(1, 0.25),
+            pos_hint={"center_x": 0.5, "center_y": 0.10}
         )
 
         btn_wroc = Button(
             text="",
-            size_hint=(0.12, 1),
-            pos_hint={
-                "center_x": 0.5,
-                "center_y": 0.6
-            },
+            size_hint=(1, 1),
+            pos_hint={"x": 0, "y": 0},
+            background_normal="",
+            background_down="",
             background_color=(0, 0, 0, 0)
         )
 
-        
         wroc_layout.add_widget(ikona_wroc)
         wroc_layout.add_widget(napis_wroc)
         wroc_layout.add_widget(btn_wroc)
 
-        ekran.add_widget(tytul)
-        ekran.add_widget(wszystkie_layout)
         ekran.add_widget(miesiaca_layout)
         ekran.add_widget(dnia_layout)
         ekran.add_widget(wroc_layout)
-
-        btn_wroc.bind(
-            on_press=lambda x: self.pokaz_menu(None)
-        )
-        
-        self.layout.add_widget(ekran)
-
-        btn_wszystkie.bind(
-            on_press=self.pokaz_statystyki_wszystkie
-        )
-       
 
         btn_miesiaca.bind(
             on_press=self.pokaz_statystyki_miesiaca
@@ -1604,203 +1585,85 @@ class BudgetApp(App):
             on_press=self.pokaz_statystyki_dnia
         )
 
-    def pokaz_statystyki_wszystkie(self, instance):
-        self.layout.clear_widgets()
-
-        liczba_wydatkow = len(self.wydatki)
-
-        suma_zakupy = sum(
-            wydatek["kwota"]
-            for wydatek in self.wydatki
-            if wydatek["kategoria"] == "Zakupy"
+        btn_wroc.bind(
+            on_press=lambda x: self.pokaz_menu(None)
         )
 
-        suma_paliwo = sum(
-            wydatek["kwota"]
-            for wydatek in self.wydatki
-            if wydatek["kategoria"] == "Paliwo"
-        )
-
-        suma_inne = sum(
-            wydatek["kwota"]
-            for wydatek in self.wydatki
-            if wydatek["kategoria"] == "Inne"
-        )
-        suma_razem =(
-            suma_zakupy +
-            suma_paliwo +
-            suma_inne
-        )
-
-        ekran = BoxLayout(
-            orientation="vertical",
-            padding=20,
-            spacing=10
-        )
-
-        tytul = Label(
-            text="Wszystkie statystyki:",
-            font_size="22sp",
-            bold=True
-        )
-
-        liczba = Label(
-            text=f"Liczba wydatków: [b]{liczba_wydatkow}[/b]",
-            markup=True,
-            font_size="20sp"
-        )
-
-        zakupy = Label(
-            text=f" Zakupy: [color=00ff00]{suma_zakupy:.2f} zł[/color]",
-            markup=True,
-            font_size="20sp"
-        )
-
-        paliwo = Label(
-            text=f" Paliwo: [color=00ff00]{suma_paliwo:.2f} zł[/color]",
-            markup=True,
-            font_size="20sp"
-        )
-
-        inne = Label(
-            text=f" Inne: [color=00ff00]{suma_inne:.2f} zł[/color]",
-            markup=True,
-            font_size="20sp"
-        )
-
-        razem = Label(
-            text=f"[b][color=ffaa00]Łączne wydatki: {suma_razem:.2f} zł[/color][/b]",
-            markup=True,
-            font_size="24sp"
-        )
-
-        powrot_layout = FloatLayout(
-            size_hint_y=None,
-            height=60
-        )
-
-        ikona_powrot = Image(
-            source="icons/wroc.png",
-            fit_mode="contain",
-            size_hint=(1, 1.2),
-            pos_hint={
-                "center_x": 0.5,
-                "center_y": 0.5
-            }
-        )
-
-        napis_powrot = Label(
-            text="Powrót",
-            font_size="18sp",
-            bold=True,
-            color=(1, 1, 1, 1),
-            pos_hint={
-                "center_x": 0.5,
-                "center_y": 0.15
-            }
-        )
-
-        btn_powrot = Button(
-            text="",
-            size_hint=(0.1, 1),
-            pos_hint={
-                "center_x": 0.5,
-                "y": 0
-            },
-            background_normal="",
-            background_down="",
-            background_color=(0, 0, 0, 0)
-        )
-
-        btn_powrot.bind(
-            on_press=lambda x: self.pokaz_statystyki(None)
-        )
-
-        powrot_layout.add_widget(ikona_powrot)
-        powrot_layout.add_widget(napis_powrot)
-        powrot_layout.add_widget(btn_powrot)
-
-       
-
-        ekran.add_widget(tytul)
-        ekran.add_widget(liczba)
-        ekran.add_widget(Widget(
-            size_hint_y=None,
-            height=15
-        ))
-
-        ekran.add_widget(zakupy)
-        ekran.add_widget(paliwo)
-        ekran.add_widget(inne)
-
-        ekran.add_widget(Widget(
-            size_hint_y=None,
-            height=20
-        ))
-
-        ekran.add_widget(razem)
-        ekran.add_widget(powrot_layout)
         self.layout.add_widget(ekran)
 
 
+    
+
+    
     def pokaz_statystyki_miesiaca(self, instance):
         self.layout.clear_widgets()
 
-    
-
         ekran = BoxLayout(
             orientation="vertical",
-            padding=20,
-            spacing=10
+            padding=[dp(15), dp(15), dp(15), dp(15)],
+            spacing=dp(12)
         )
 
         tytul = Label(
             text="Statystyki miesiąca:",
-            font_size="22sp",
-            bold=True
+            font_size="28sp",
+            bold=True,
+            size_hint_y=None,
+            height=dp(65)
         )
 
         self.input_rok = TextInput(
             hint_text="Podaj rok:",
             size_hint_y=None,
-            height=50
+            height=dp(100),
+            font_size="26sp",
+            padding=[dp(15), dp(25)],
+            multiline=False
         )
 
         self.input_miesiac = TextInput(
             hint_text="Podaj miesiąc (1-12):",
             size_hint_y=None,
-            height=50
-        )
-        
-        self.info_label = Label(
-            text="",
-            color=(1, 0, 0, 1)
+            height=dp(100),
+            font_size="26sp",
+            padding=[dp(15), dp(25)],
+            multiline=False
         )
 
+        self.info_label = Label(
+            text="",
+            color=(1, 0, 0, 1),
+            font_size="20sp",
+            size_hint_y=None,
+            height=dp(40)
+        )
+
+        # Sprawdź
         sprawdz_layout = FloatLayout(
             size_hint_y=None,
-            height=80
+            height=dp(150)
         )
 
         ikona_sprawdz = Image(
             source="icons/sprawdz.png",
             fit_mode="contain",
-            size_hint=(1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 0.5}
+            size_hint=(0.65, 0.85),
+            pos_hint={"center_x": 0.5, "center_y": 0.55}
         )
 
         napis_sprawdz = Label(
             text="Sprawdź",
-            font_size="18sp",
+            font_size="28sp",
             bold=True,
             color=(1, 1, 1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 0.15}
+            size_hint=(1, 0.25),
+            pos_hint={"center_x": 0.5, "center_y": 0.10}
         )
 
         btn_sprawdz = Button(
             text="",
-            size_hint=(0.1, 1),
-            pos_hint={"center_x": 0.5, "y": 0},
+            size_hint=(1, 1),
+            pos_hint={"x": 0, "y": 0},
             background_normal="",
             background_down="",
             background_color=(0, 0, 0, 0)
@@ -1810,30 +1673,32 @@ class BudgetApp(App):
         sprawdz_layout.add_widget(napis_sprawdz)
         sprawdz_layout.add_widget(btn_sprawdz)
 
+        # Powrót
         powrot_layout = FloatLayout(
             size_hint_y=None,
-            height=80
+            height=dp(150)
         )
 
         ikona_powrot = Image(
             source="icons/wroc.png",
             fit_mode="contain",
-            size_hint=(1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 0.5}
+            size_hint=(0.65, 0.85),
+            pos_hint={"center_x": 0.5, "center_y": 0.55}
         )
 
         napis_powrot = Label(
             text="Powrót",
-            font_size="18sp",
+            font_size="28sp",
             bold=True,
             color=(1, 1, 1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 0.15}
+            size_hint=(1, 0.25),
+            pos_hint={"center_x": 0.5, "center_y": 0.10}
         )
 
         btn_powrot = Button(
             text="",
-            size_hint=(0.1, 1),
-            pos_hint={"center_x": 0.5, "y": 0},
+            size_hint=(1, 1),
+            pos_hint={"x": 0, "y": 0},
             background_normal="",
             background_down="",
             background_color=(0, 0, 0, 0)
@@ -1849,248 +1714,250 @@ class BudgetApp(App):
         ekran.add_widget(sprawdz_layout)
         ekran.add_widget(powrot_layout)
         ekran.add_widget(self.info_label)
+
         btn_powrot.bind(
             on_press=lambda x: self.pokaz_statystyki(None)
         )
+
         btn_sprawdz.bind(
             on_press=self.policz_statystyki_miesiaca
         )
 
-
         self.layout.add_widget(ekran)
 
+
+    
+    
     def policz_statystyki_miesiaca(self, instance):
 
         rok = waliduj_rok(self.input_rok.text)
-
         miesiac = waliduj_miesiac(self.input_miesiac.text)
 
         if rok is None:
-            self.info_label.text = "Aplikacja działa od 2026 "
+            self.info_label.text = "Aplikacja działa od 2026"
             return
+
         if miesiac is None:
             self.info_label.text = "Nieprawidłowy miesiąc (1-12)"
             return
 
-
         szukam_miesiaca = f"{str(miesiac).zfill(2)}.{rok}"
 
-        
-
-        wydatki_miesiaca = []
-
-        for wydatek in self.wydatki:
-            
-            if szukam_miesiaca in wydatek["data_czas"]:
-
-                wydatki_miesiaca.append(wydatek)
+        wydatki_miesiaca = [
+            wydatek for wydatek in self.wydatki
+            if szukam_miesiaca in wydatek["data_czas"]
+        ]
 
         liczba_wydatkow = len(wydatki_miesiaca)
 
         suma_zakupy = sum(
-            wydatek["kwota"]
-            for wydatek in wydatki_miesiaca
-            if wydatek["kategoria"] == "Zakupy"
-
+            w["kwota"] for w in wydatki_miesiaca
+            if w["kategoria"] == "Zakupy"
         )
 
         suma_paliwo = sum(
-            wydatek["kwota"]
-            for wydatek in wydatki_miesiaca
-            if wydatek["kategoria"] == "Paliwo"
-        )    
-
+            w["kwota"] for w in wydatki_miesiaca
+            if w["kategoria"] == "Paliwo"
+        )
 
         suma_inne = sum(
-            wydatek["kwota"]
-            for wydatek in wydatki_miesiaca
-            if wydatek["kategoria"] == "Inne"
+            w["kwota"] for w in wydatki_miesiaca
+            if w["kategoria"] == "Inne"
         )
 
-        suma_razem = (
-            suma_zakupy +
-            suma_paliwo +
-            suma_inne
-        )
+        suma_razem = suma_zakupy + suma_paliwo + suma_inne
 
         self.layout.clear_widgets()
 
         ekran = BoxLayout(
             orientation="vertical",
-            padding=20,
-            spacing=10
+            padding=[dp(15), dp(10), dp(15), dp(10)],
+            spacing=dp(5)
         )
 
         tytul = Label(
-            text=f"Statystyki miesiąca {szukam_miesiaca}:",
-            font_size="22sp",
-            bold=True
+            text=f"Statystyki miesiąca\n{szukam_miesiaca}",
+            font_size="30sp",
+            bold=True,
+            size_hint_y=None,
+            height=dp(100),
+            halign="center",
+            valign="middle"
         )
 
         liczba = Label(
-            text=f"Liczba wydatków: [b]{liczba_wydatkow}[/b]",
-            markup=True,
-            font_size="20sp"
+            text=f"Liczba wydatków: {liczba_wydatkow}",
+            font_size="25sp",
+            bold=True,
+            size_hint_y=None,
+            height=dp(75)
         )
 
         zakupy = Label(
-            text=f" Zakupy: [color=00ff00]{suma_zakupy:.2f} zł[/color]",
+            text=f"[b]Zakupy: [color=00ff00]{suma_zakupy:.2f} zł[/color][/b]",
             markup=True,
-            font_size="20sp"
+            font_size="28sp",
+            size_hint_y=None,
+            height=dp(85)
         )
 
         paliwo = Label(
-            text=f" Paliwo: [color=00ff00]{suma_paliwo:.2f} zł[/color]",
+            text=f"[b]Paliwo: [color=00ff00]{suma_paliwo:.2f} zł[/color][/b]",
             markup=True,
-            font_size="20sp"
+            font_size="28sp",
+            size_hint_y=None,
+            height=dp(85)
         )
 
         inne = Label(
-            text=f" Inne: [color=00ff00]{suma_inne:.2f} zł[/color]",
+            text=f"[b]Inne: [color=00ff00]{suma_inne:.2f} zł[/color][/b]",
             markup=True,
-            font_size="20sp"
+            font_size="28sp",
+            size_hint_y=None,
+            height=dp(85)
         )
 
         razem = Label(
-            text=f"[b][color=ffaa00]Łączne wydatki: {suma_razem:.2f} zł[/color][/b]",
+            text=f"[b][color=ffaa00]Łączne wydatki:\n{suma_razem:.2f} zł[/color][/b]",
             markup=True,
-            font_size="24sp"
+            font_size="30sp",
+            size_hint_y=None,
+            height=dp(120),
+            halign="center",
+            valign="middle"
         )
 
         powrot_layout = FloatLayout(
             size_hint_y=None,
-            height=60
+            height=dp(130)
         )
 
         ikona_powrot = Image(
             source="icons/wroc.png",
             fit_mode="contain",
-            size_hint=(1, 1.2),
-            pos_hint={
-                "center_x": 0.5,
-                "center_y": 0.5
-            }
+            size_hint=(0.65, 0.85),
+            pos_hint={"center_x": 0.5, "center_y": 0.55}
         )
 
         napis_powrot = Label(
             text="Powrót",
-            font_size="18sp",
+            font_size="28sp",
             bold=True,
             color=(1, 1, 1, 1),
-            pos_hint={
-                "center_x": 0.5,
-                "center_y": 0.15
-            }
+            size_hint=(1, 0.25),
+            pos_hint={"center_x": 0.5, "center_y": 0.10}
         )
 
         btn_powrot = Button(
             text="",
-            size_hint=(0.1, 1),
-            pos_hint={
-                "center_x": 0.5,
-                "y": 0
-            },
+            size_hint=(1, 1),
+            pos_hint={"x": 0, "y": 0},
             background_normal="",
             background_down="",
             background_color=(0, 0, 0, 0)
-        )
-
-        btn_powrot.bind(
-            on_press=self.pokaz_statystyki_miesiaca
         )
 
         powrot_layout.add_widget(ikona_powrot)
         powrot_layout.add_widget(napis_powrot)
         powrot_layout.add_widget(btn_powrot)
 
+        btn_powrot.bind(
+            on_press=self.pokaz_statystyki_miesiaca
+        )
+
         ekran.add_widget(tytul)
         ekran.add_widget(liczba)
-
-        ekran.add_widget(Widget(
-            size_hint_y=None,
-            height=15
-        ))
-
         ekran.add_widget(zakupy)
         ekran.add_widget(paliwo)
         ekran.add_widget(inne)
-
-        ekran.add_widget(Widget(
-            size_hint_y=None,
-            height=20
-        ))
-
         ekran.add_widget(razem)
         ekran.add_widget(powrot_layout)
 
         self.layout.add_widget(ekran)
 
 
+
     
 
+    
     def pokaz_statystyki_dnia(self, instance):
         self.layout.clear_widgets()
-        
-            
-        
+
         ekran = BoxLayout(
             orientation="vertical",
-            padding=20,
-            spacing=10
+            padding=[dp(15), dp(15), dp(15), dp(15)],
+            spacing=dp(12)
         )
 
         tytul = Label(
             text="Statystyki dnia:",
-            font_size="22sp",
-            bold=True
+            font_size="28sp",
+            bold=True,
+            size_hint_y=None,
+            height=dp(65)
         )
 
         self.input_rok = TextInput(
             hint_text="Podaj rok:",
             size_hint_y=None,
-            height=50
+            height=dp(100),
+            font_size="24sp",
+            padding=[dp(15), dp(22)],
+            multiline=False
         )
 
         self.input_miesiac = TextInput(
             hint_text="Podaj miesiąc (1-12):",
             size_hint_y=None,
-            height=50
+            height=dp(100),
+            font_size="24sp",
+            padding=[dp(15), dp(22)],
+            multiline=False
         )
 
         self.input_dzien = TextInput(
             hint_text="Podaj dzień:",
             size_hint_y=None,
-            height=50
+            height=dp(100),
+            font_size="24sp",
+            padding=[dp(15), dp(22)],
+            multiline=False
         )
 
         self.info_label = Label(
             text="",
-            color=(1, 0, 0, 1)
+            color=(1, 0, 0, 1),
+            font_size="20sp",
+            size_hint_y=None,
+            height=dp(40)
+        )
+
+        # Przycisk Sprawdź
+        sprawdz_layout = FloatLayout(
+            size_hint_y=None,
+            height=dp(150)
         )
 
         ikona_sprawdz = Image(
             source="icons/sprawdz.png",
             fit_mode="contain",
-            size_hint=(1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 0.5}
+            size_hint=(0.65, 0.85),
+            pos_hint={"center_x": 0.5, "center_y": 0.55}
         )
 
-        sprawdz_layout = FloatLayout(
-            size_hint_y=None,
-            height=80
-        )
         napis_sprawdz = Label(
             text="Sprawdź",
-            font_size="18sp",
+            font_size="28sp",
             bold=True,
             color=(1, 1, 1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 0.15}
+            size_hint=(1, 0.25),
+            pos_hint={"center_x": 0.5, "center_y": 0.10}
         )
 
         btn_sprawdz = Button(
             text="",
-            size_hint=(0.1, 1),
-            pos_hint={"center_x": 0.5, "y": 0},
+            size_hint=(1, 1),
+            pos_hint={"x": 0, "y": 0},
             background_normal="",
             background_down="",
             background_color=(0, 0, 0, 0)
@@ -2100,30 +1967,32 @@ class BudgetApp(App):
         sprawdz_layout.add_widget(napis_sprawdz)
         sprawdz_layout.add_widget(btn_sprawdz)
 
+        # Przycisk Powrót
         powrot_layout = FloatLayout(
             size_hint_y=None,
-            height=80
+            height=dp(150)
         )
 
         ikona_powrot = Image(
             source="icons/wroc.png",
             fit_mode="contain",
-            size_hint=(1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 0.5}
+            size_hint=(0.65, 0.85),
+            pos_hint={"center_x": 0.5, "center_y": 0.55}
         )
 
         napis_powrot = Label(
             text="Powrót",
-            font_size="18sp",
+            font_size="28sp",
             bold=True,
             color=(1, 1, 1, 1),
-            pos_hint={"center_x": 0.5, "center_y": 0.15}
+            size_hint=(1, 0.25),
+            pos_hint={"center_x": 0.5, "center_y": 0.10}
         )
 
         btn_powrot = Button(
             text="",
-            size_hint=(0.1, 1),
-            pos_hint={"center_x": 0.5, "y": 0},
+            size_hint=(1, 1),
+            pos_hint={"x": 0, "y": 0},
             background_normal="",
             background_down="",
             background_color=(0, 0, 0, 0)
@@ -2140,15 +2009,17 @@ class BudgetApp(App):
         ekran.add_widget(sprawdz_layout)
         ekran.add_widget(powrot_layout)
         ekran.add_widget(self.info_label)
+
         btn_powrot.bind(
             on_press=lambda x: self.pokaz_statystyki(None)
         )
+
         btn_sprawdz.bind(
             on_press=self.policz_statystyki_dnia
         )
 
-
         self.layout.add_widget(ekran)
+
         
     
     def policz_statystyki_dnia(self, instance):
