@@ -1611,7 +1611,7 @@ class BudgetApp(App):
             size_hint_y=None,
             height=dp(60),
             font_size="15sp",
-            padding=[dp(15), dp(25)],
+            padding=[dp(15), dp(22)],
             multiline=False
         )
 
@@ -1620,7 +1620,7 @@ class BudgetApp(App):
             size_hint_y=None,
             height=dp(60),
             font_size="15sp",
-            padding=[dp(15), dp(25)],
+            padding=[dp(15), dp(22)],
             multiline=False
         )
 
