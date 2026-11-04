@@ -711,7 +711,7 @@ class BudgetApp(App):
                         f"{wydatek['kwota']:.2f} zł"
                     ),
                     markup=True,
-                    font_size="21sp",
+                    font_size="19sp",
                     background_normal="",
                     background_down="",
                     background_color=(0, 0, 0, 0),
@@ -719,7 +719,7 @@ class BudgetApp(App):
                     halign="left",
                     valign="middle",
                     size_hint=(1, None),
-                    height=dp(110)
+                    height=dp(60)
                 )
 
                 btn_klik.bind(
@@ -852,14 +852,14 @@ class BudgetApp(App):
         self.info_label = Label(
             text="",
             color=(1, 0, 0, 1),
-            font_size="18sp",
+            font_size="20sp",
             size_hint_y=None,
             height=dp(30)
         )
 
         zapisz_layout = FloatLayout(
             size_hint_y=None,
-            height=150
+            height=dp(150)
         )
 
         ikona_zapisz = Image(
@@ -871,7 +871,7 @@ class BudgetApp(App):
 
         napis_zapisz = Label(
             text="Zapisz",
-            font_size="18sp",
+            font_size="28sp",
             bold=True,
             color=(1, 1, 1, 1),
             pos_hint={"center_x": 0.5, "center_y": 0.15}
@@ -896,7 +896,7 @@ class BudgetApp(App):
 
         powrot_layout = FloatLayout(
             size_hint_y=None,
-            height=150
+            height=dp(150)
         )
 
         ikona_powrot = Image(
@@ -908,7 +908,7 @@ class BudgetApp(App):
 
         napis_powrot = Label(
             text="Powrót",
-            font_size="18sp",
+            font_size="28sp",
             bold=True,
             color=(1, 1, 1, 1),
             pos_hint={"center_x": 0.5, "center_y": 0.15}
@@ -992,7 +992,7 @@ class BudgetApp(App):
         self.info_label = Label(
             text="",
             color=(1, 0, 0, 1),
-            font_size="18sp",
+            font_size="20sp",
             size_hint_y=None,
             height=dp(30)
         )
@@ -1209,7 +1209,7 @@ class BudgetApp(App):
         self.info_label = Label(
             text="",
             color=(1, 0, 0, 1),
-            font_size="18sp",
+            font_size="20sp",
             size_hint_y=None,
             height=dp(30)
         )
@@ -1374,9 +1374,9 @@ class BudgetApp(App):
                 rekord = Label(
                     text=tekst,
                     markup=True,
-                    font_size="21sp",
+                    font_size="19sp",
                     size_hint=(1, None),
-                    height=dp(100),
+                    height=dp(60),
                     halign="left",
                     valign="middle"
                 )
@@ -1627,7 +1627,7 @@ class BudgetApp(App):
         self.info_label = Label(
             text="",
             color=(1, 0, 0, 1),
-            font_size="22sp",
+            font_size="20sp",
             size_hint_y=None,
             height=dp(25)
         )
@@ -2081,7 +2081,7 @@ class BudgetApp(App):
             font_size="22sp",
             bold=True,
             size_hint_y=None,
-            height=40
+            height=dp(55)
         )
 
         liczba = Label(
@@ -2089,7 +2089,7 @@ class BudgetApp(App):
             markup=True,
             font_size="20sp",
             size_hint_y=None,
-            height=30
+            height=dp(40)
         )
 
        
@@ -2099,12 +2099,12 @@ class BudgetApp(App):
             markup=True,
             font_size="24sp",
             size_hint_y=None,
-            height=40
+            height=dp(45) 
         )
 
         powrot_layout = FloatLayout(
             size_hint_y=None,
-            height=40
+            height=dp(150)
         )
 
         ikona_powrot = Image(
@@ -2119,7 +2119,7 @@ class BudgetApp(App):
 
         napis_powrot = Label(
             text="Powrót",
-            font_size="18sp",
+            font_size="28sp",
             bold=True,
             color=(1, 1, 1, 1),
             pos_hint={
@@ -2130,7 +2130,7 @@ class BudgetApp(App):
 
         btn_powrot = Button(
             text="",
-            size_hint=(0.1, 1),
+            size_hint=(1, 1),
             pos_hint={
                 "center_x": 0.5,
                 "y": 0
@@ -2199,9 +2199,9 @@ class BudgetApp(App):
                             f"[color=00ff00]{wydatek['kwota']:.2f} zł[/color]"
                         ),
                         markup=True,
-                        font_size="16sp",
+                        font_size="19sp",
                         size_hint_y=None,
-                        height=50
+                        height=dp(60)
                     )
                 lista.add_widget(wpis)
         scroll.add_widget(lista)
