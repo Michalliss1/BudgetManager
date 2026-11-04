@@ -817,26 +817,25 @@ class BudgetApp(App):
 
         ekran = BoxLayout(
             orientation="vertical",
-            padding=20,
-            spacing=10
+            padding=dp(20),
+            spacing=dp(6)
         )
 
         tytul = Label(
-            text="Dodaj zakupy"
+            text="Dodaj Zakupy",
+            font_size="24sp",
+            size_hint_y=None,
+            height=dp(45)
         )
         
-        ikona_zakupy = Image(
-            source="icons/zakupy.png",
-            size_hint=(1, 0.7),
-            fit_mode="contain"
-        )
+       
 
 
         self.input_sklep = TextInput(
             hint_text="Podaj nazwę sklepu:",
             size_hint_y=None,
-            height=dp(100),
-            font_size="24sp",
+            height=dp(80),
+            font_size="22sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -844,15 +843,18 @@ class BudgetApp(App):
         self.input_kwota = TextInput(
             hint_text="Podaj kwotę:",
             size_hint_y=None,
-            height=dp(100),
-            font_size="24sp",
+            height=dp(80),
+            font_size="22sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
 
         self.info_label = Label(
             text="",
-            color=(1, 0, 0, 1)
+            color=(1, 0, 0, 1),
+            font_size="18sp",
+            size_hint_y=None,
+            height=dp(30)
         )
 
         zapisz_layout = FloatLayout(
@@ -877,7 +879,7 @@ class BudgetApp(App):
 
         btn_zapisz = Button(
             text="",
-            size_hint=(0.1, 1),
+            size_hint=(1, 1),
             pos_hint={
                 "center_x": 0.5,
                 "y": 0
@@ -914,7 +916,7 @@ class BudgetApp(App):
 
         btn_powrot = Button(
             text="",
-            size_hint=(0.1, 1),
+            size_hint=(1, 1),
             pos_hint={
                 "center_x": 0.5,
                 "y": 0
@@ -928,15 +930,15 @@ class BudgetApp(App):
         powrot_layout.add_widget(napis_powrot)
         powrot_layout.add_widget(btn_powrot)
 
-        ekran.add_widget(ikona_zakupy)
+        
         ekran.add_widget(tytul)
         
         ekran.add_widget(self.input_sklep)
         ekran.add_widget(self.input_kwota)
-       
+        ekran.add_widget(self.info_label)
         ekran.add_widget(zapisz_layout )
         ekran.add_widget(powrot_layout)
-        ekran.add_widget(self.info_label)
+        
 
         self.layout.add_widget(ekran)
 
@@ -967,17 +969,13 @@ class BudgetApp(App):
             height=dp(45)
         )
 
-        ikona_paliwo = Image(
-            source="icons/paliwo.png",
-            size_hint=(1, 0.9),
-            fit_mode="contain"
-        )
+      
 
         self.input_stacja = TextInput(
             hint_text="Podaj nazwę Stacji Paliw:",
             size_hint_y=None,
-            height=dp(100),
-            font_size="24sp",
+            height=dp(80),
+            font_size="22sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -985,8 +983,8 @@ class BudgetApp(App):
         self.input_kwota = TextInput(
             hint_text="Podaj kwotę:",
             size_hint_y=None,
-            height=dp(100),
-            font_size="24sp",
+            height=dp(80),
+            font_size="22sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1149,7 +1147,7 @@ class BudgetApp(App):
         powrot_layout.add_widget(napis_powrot)
         powrot_layout.add_widget(btn_powrot)
 
-        ekran.add_widget(ikona_paliwo)
+        
         ekran.add_widget(tytul)
         ekran.add_widget(self.input_stacja)
         ekran.add_widget(self.input_kwota)
@@ -1188,17 +1186,13 @@ class BudgetApp(App):
             height=dp(45)
         )
 
-        ikona_inne = Image(
-            source="icons/inne.png",
-            size_hint=(1, 0.9),
-            fit_mode="contain"
-        )
+       
 
         self.input_nazwa = TextInput(
             hint_text="Podaj nazwę wydatku:",
             size_hint_y=None,
-            height=dp(100),
-            font_size="24sp",
+            height=dp(80),
+            font_size="22sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1206,8 +1200,8 @@ class BudgetApp(App):
         self.input_kwota = TextInput(
             hint_text="Podaj kwotę:",
             size_hint_y=None,
-            height=dp(100),
-            font_size="24sp",
+            height=dp(80),
+            font_size="22sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1286,7 +1280,7 @@ class BudgetApp(App):
         powrot_layout.add_widget(napis_powrot)
         powrot_layout.add_widget(btn_powrot)
 
-        ekran.add_widget(ikona_inne)
+        
         ekran.add_widget(tytul)
         ekran.add_widget(self.input_nazwa)
         ekran.add_widget(self.input_kwota)
@@ -1605,7 +1599,7 @@ class BudgetApp(App):
         )
 
         tytul = Label(
-            text="Statystyki miesiąca:",
+            text="Statystyki miesiąca",
             font_size="28sp",
             bold=True,
             size_hint_y=None,
@@ -1615,8 +1609,8 @@ class BudgetApp(App):
         self.input_rok = TextInput(
             hint_text="Podaj rok:",
             size_hint_y=None,
-            height=dp(100),
-            font_size="26sp",
+            height=dp(80),
+            font_size="22sp",
             padding=[dp(15), dp(25)],
             multiline=False
         )
@@ -1624,8 +1618,8 @@ class BudgetApp(App):
         self.input_miesiac = TextInput(
             hint_text="Podaj miesiąc (1-12):",
             size_hint_y=None,
-            height=dp(100),
-            font_size="26sp",
+            height=dp(80),
+            font_size="22sp",
             padding=[dp(15), dp(25)],
             multiline=False
         )
@@ -1633,9 +1627,9 @@ class BudgetApp(App):
         self.info_label = Label(
             text="",
             color=(1, 0, 0, 1),
-            font_size="20sp",
+            font_size="22sp",
             size_hint_y=None,
-            height=dp(40)
+            height=dp(25)
         )
 
         # Sprawdź
@@ -1645,7 +1639,7 @@ class BudgetApp(App):
         )
 
         ikona_sprawdz = Image(
-            source="icons/sprawdz.png",
+            source="icons/zobacz.png",
             fit_mode="contain",
             size_hint=(0.65, 0.85),
             pos_hint={"center_x": 0.5, "center_y": 0.55}
@@ -1711,9 +1705,9 @@ class BudgetApp(App):
         ekran.add_widget(tytul)
         ekran.add_widget(self.input_rok)
         ekran.add_widget(self.input_miesiac)
+        ekran.add_widget(self.info_label)
         ekran.add_widget(sprawdz_layout)
         ekran.add_widget(powrot_layout)
-        ekran.add_widget(self.info_label)
 
         btn_powrot.bind(
             on_press=lambda x: self.pokaz_statystyki(None)
@@ -1890,7 +1884,7 @@ class BudgetApp(App):
         )
 
         tytul = Label(
-            text="Statystyki dnia:",
+            text="Statystyki dnia",
             font_size="28sp",
             bold=True,
             size_hint_y=None,
@@ -1900,8 +1894,8 @@ class BudgetApp(App):
         self.input_rok = TextInput(
             hint_text="Podaj rok:",
             size_hint_y=None,
-            height=dp(100),
-            font_size="24sp",
+            height=dp(80),
+            font_size="22sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1909,8 +1903,8 @@ class BudgetApp(App):
         self.input_miesiac = TextInput(
             hint_text="Podaj miesiąc (1-12):",
             size_hint_y=None,
-            height=dp(100),
-            font_size="24sp",
+            height=dp(80),
+            font_size="22sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1918,8 +1912,8 @@ class BudgetApp(App):
         self.input_dzien = TextInput(
             hint_text="Podaj dzień:",
             size_hint_y=None,
-            height=dp(100),
-            font_size="24sp",
+            height=dp(80),
+            font_size="22sp",
             padding=[dp(15), dp(22)],
             multiline=False
         )
@@ -1939,7 +1933,7 @@ class BudgetApp(App):
         )
 
         ikona_sprawdz = Image(
-            source="icons/sprawdz.png",
+            source="icons/zobacz.png",
             fit_mode="contain",
             size_hint=(0.65, 0.85),
             pos_hint={"center_x": 0.5, "center_y": 0.55}
@@ -1963,9 +1957,9 @@ class BudgetApp(App):
             background_color=(0, 0, 0, 0)
         )
 
+        sprawdz_layout.add_widget(btn_sprawdz)
         sprawdz_layout.add_widget(ikona_sprawdz)
         sprawdz_layout.add_widget(napis_sprawdz)
-        sprawdz_layout.add_widget(btn_sprawdz)
 
         # Przycisk Powrót
         powrot_layout = FloatLayout(
@@ -2006,9 +2000,9 @@ class BudgetApp(App):
         ekran.add_widget(self.input_rok)
         ekran.add_widget(self.input_miesiac)
         ekran.add_widget(self.input_dzien)
+        ekran.add_widget(self.info_label)
         ekran.add_widget(sprawdz_layout)
         ekran.add_widget(powrot_layout)
-        ekran.add_widget(self.info_label)
 
         btn_powrot.bind(
             on_press=lambda x: self.pokaz_statystyki(None)
