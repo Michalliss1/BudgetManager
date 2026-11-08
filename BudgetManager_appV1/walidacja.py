@@ -71,7 +71,9 @@ def waliduj_dzien(tekst):
    
     try:
         dzien = int(tekst)
-
+# Obecnie przyjmowane są wartości 1-31.
+# W przyszłości walidacja zostanie rozszerzona o sprawdzanie
+# poprawnej liczby dni dla konkretnego miesiąca i roku.
         if dzien < 1 or dzien > 31:
             return None
 
