@@ -1,7 +1,7 @@
 
 ## 📲 Pobierz aplikację
 
-[**⬇️ OTWÓRZ STRONĘ I ZAINSTALUJ APLIKACJĘ**](https://michalliss1.github.io/PersonalFinanceManager-Mobile/)
+[**⬇️ Wersja mobilna Android - pobierz i zainstaluj aplikację**](https://michalliss1.github.io/PersonalFinanceManager-Mobile/)
 
 **Wersja:** 1.0 Alpha
 
