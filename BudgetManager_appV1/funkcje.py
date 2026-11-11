@@ -6,9 +6,7 @@ def pobierz_miesiac():
     while True:
         try:
             miesiac = int(input("Podaj numer miesiąca (1-12): "))
-# Obecnie sprawdzany jest tylko zakres 1-31.
-# Poprawna walidacja powinna uwzględniać wybrany miesiąc
-# oraz rok (w tym lata przestępne).
+
             if 1 <= miesiac <= 12:
                 return miesiac
 
@@ -40,6 +38,25 @@ def pobierz_dzien():
     while True:
         try:
             dzien = int(input("Podaj dzień (1-31): "))
+from datetime import datetime
+from narzedzia import formatuj_date
+
+def pobierz_miesiac():
+
+    while True:
+        try:
+            miesiac = int(input("Podaj numer miesiąca (1-12): "))
+# Obecnie sprawdzany jest tylko zakres 1-31.
+# Poprawna walidacja powinna uwzględniać wybrany miesiąc
+# oraz rok (w tym lata przestępne).
+            if 1 <= miesiac <= 12:
+                return miesiac
+
+            print("Miesiąc musi być od 1 do 12.")
+
+        except ValueError:
+            print("Nieprawidłowy numer miesiąca. Wprowadź liczbę od 1 do 12.")
+
 
             if 1 <= dzien <= 31:
                 return dzien
